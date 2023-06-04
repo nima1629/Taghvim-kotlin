@@ -1,3 +1,6 @@
+import date_types.ShamsiDate
+import date_types.ShamsiDateAndTime
+import date_types.Time24H
 import java.time.*
 import java.time.format.DateTimeFormatter
 
@@ -19,7 +22,7 @@ class TaghvimImpl():Taghvim{
     val currentMonth by lazy { currentDate.month }
     val currentYear by lazy { currentDate.year }
 
-    private fun dateInOneKabiseCycle(millis: Long, kabiseYear:Int = 4, beginningYear:Int = 0):ShamsiDate{
+    private fun dateInOneKabiseCycle(millis: Long, kabiseYear:Int = 4, beginningYear:Int = 0): ShamsiDate {
         if (millis >= MILLIS_IN_YEAR*kabiseYear){
             return ShamsiDate(kabiseYear+beginningYear,12,30)
         }
@@ -38,7 +41,7 @@ class TaghvimImpl():Taghvim{
         }
     }
 
-    private fun dateInMultipleKabiseCycles(millis: Long,beginningYear:Int):ShamsiDate{
+    private fun dateInMultipleKabiseCycles(millis: Long,beginningYear:Int): ShamsiDate {
         val numberOfKabises = (millis / MILLIS_IN_FOUR_KABISE).toInt() *4
         val remainingMillis = millis % MILLIS_IN_FOUR_KABISE
         val date = dateInOneKabiseCycle(remainingMillis)
@@ -54,7 +57,7 @@ class TaghvimImpl():Taghvim{
     }
 
 
-    override fun toShamsi(millis:Long):ShamsiDateAndTime{
+    override fun toShamsi(millis:Long): ShamsiDateAndTime {
         //Check if millis is in range:
         if (millis < BEGINNING_MILLIS || millis > 4835017800000L){
             return ShamsiDateAndTime(
@@ -72,7 +75,7 @@ class TaghvimImpl():Taghvim{
         val second = remainingMillisForSecond/1000
 
         //Date:
-        val date:ShamsiDate = when(millisCorrected){
+        val date: ShamsiDate = when(millisCorrected){
             in 0 until 631152000000 -> {
                 dateInMultipleKabiseCycles(millisCorrected, 1350)
             } //4
@@ -110,7 +113,7 @@ class TaghvimImpl():Taghvim{
         )
     }
 
-    override fun toShamsi(date:String, format:String):ShamsiDateAndTime{ //formattedString
+    override fun toShamsi(date:String, format:String): ShamsiDateAndTime { //formattedString
         return toShamsi(toMillis(date, format))
     }
 

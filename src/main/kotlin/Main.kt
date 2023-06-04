@@ -1,3 +1,4 @@
+import date_types.MiladiDate
 import java.lang.Exception
 
 fun main() {
@@ -11,10 +12,9 @@ fun main() {
     println(System.currentTimeMillis())
      */
     val mez = TaghvimImpl()
-    val doom = 3913142400000-1
-    val poost = doom + 69971400000
     println("-----------------------------------------------")
-
+    val doom = MiladiDate(1990, 12, 23)
+    println(doom.toShamsi())
 
 }
 
