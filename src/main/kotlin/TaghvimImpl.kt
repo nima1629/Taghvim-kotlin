@@ -3,6 +3,8 @@ import java.time.format.DateTimeFormatter
 
 class TaghvimImpl():Taghvim{
     private companion object{
+        val LEAP_YEARS by lazy { listOf(1354, 1358, 1362, 1366,1370,1375,1379,1383,1387,1391,1395,1399,1403,1408,1412,1416,1420,1424,1428,
+            1432, 1436, 1441, 1445, 1449, 1453, 1457, 1461, 1465, 1469, 1474, 1478, 1482, 1486, 1490, 1494, 1498) }
         const val MILLIS_IN_DAY:Long = 86400000
         const val MILLIS_IN_YEAR:Long = 31536000000
         const val MILLIS_IN_HOUR:Long = 3600000
@@ -41,6 +43,14 @@ class TaghvimImpl():Taghvim{
         val remainingMillis = millis % MILLIS_IN_FOUR_KABISE
         val date = dateInOneKabiseCycle(remainingMillis)
         return ShamsiDate(beginningYear+numberOfKabises+date.year, date.month, date.day)
+    }
+
+    private fun dayInYear(month: Int, day: Int):Int{
+        return if (month < 7){
+            ((month-1)*31) + day
+        } else {
+            ((month-7)*30) + day + 186
+        }
     }
 
 
@@ -115,9 +125,9 @@ class TaghvimImpl():Taghvim{
     }
 
     override fun toDay(shamsiDate: ShamsiDate): Int {
-
-
-        return 0
+        val daysThisYear = dayInYear(shamsiDate.month, shamsiDate.day)
+        val extraDaysInPastYears = LEAP_YEARS.filter { it < shamsiDate.year }.size
+        return daysThisYear+extraDaysInPastYears+((shamsiDate.year - 1351)*365)-1
     }
 
     override fun toDay(millis: Long): Int {
@@ -181,10 +191,7 @@ class TaghvimImpl():Taghvim{
     }
 
     override fun toMillis(shamsiDateAndTime: ShamsiDateAndTime): Long {
-
-
-
-        return 0
+        TODO("Not implemented")
     }
 }
 

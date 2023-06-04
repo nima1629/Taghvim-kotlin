@@ -14,7 +14,7 @@ fun main() {
     val doom = 3913142400000-1
     val poost = doom + 69971400000
     println("-----------------------------------------------")
-    println(mez.toShamsi("10/1999/10", "MM/yyyy/dd").toString())
+
 
 }
 
@@ -41,14 +41,24 @@ fun test(){
     println(result + "\n" + exception)
 }
 
+fun test2(){
+    var day = 0
+    var result = ""
+    val mez = TaghvimImpl()
+    while (day < 55150){
+        if (day == 30000){
+            println(day)
+            println(result)
+        }
+        if (mez.toDay(mez.toShamsi(day)) == day){
+            day++
+        } else{
+            result = "failed at day $day"
+            break
+        }
+        result = "Successful at day $day"
+    }
+    println(result)
+}
 
-/*
-۲۲ / ۱۲ / ۱۴۹۹
-2121   March  13   , Thursday
-13 - 3 - 2121
 
-
-۲۲ / ۱۲ / ۱۴۳۰
-2052   March  12   , Tuesday
-12 - 3 - 2052
- */

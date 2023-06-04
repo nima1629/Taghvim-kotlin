@@ -53,7 +53,7 @@ data class Time24H(
     }
 
     override fun toString(): String {
-        return "${this.hour}:${this.minute}:${this.second}"
+        return "${if (this.hour<10) "0${this.hour}" else this.hour}:${if (this.minute<10) "0${this.minute}" else this.minute}:${if (this.second<10) "0${this.second}" else this.second}"
     }
 }
 
