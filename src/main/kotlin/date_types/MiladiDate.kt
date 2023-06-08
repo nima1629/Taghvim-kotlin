@@ -13,6 +13,10 @@ data class MiladiDate(
         require(day in 1..31)
     }
 
+    override fun toString(): String {
+        return "${this.day}/${this.month}/${this.year}"
+    }
+
     fun toShamsi(): ShamsiDate {
         val taghvim= TaghvimImpl()
         return taghvim.toShamsi(year, month, day).date

@@ -134,19 +134,22 @@ class TaghvimImpl():Taghvim{
     }
 
     override fun toDay(millis: Long): Int {
-        TODO("Not yet implemented")
+        val shamsiDate = toShamsi(millis).date
+        return toDay(shamsiDate)
     }
 
     override fun toDay(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int): Int {
-        TODO("Not yet implemented")
+        val shamsiDate = toShamsi(year, month, day).date
+        return toDay(shamsiDate)
     }
 
     override fun toDay(date:String, format:String): Int {
-        TODO("Not yet implemented")
+        val shamsiDate = toShamsi(date, format).date
+        return toDay(shamsiDate)
     }
 
     override fun toMiladi(shamsiDate: ShamsiDate): String {
-        TODO("Not yet implemented")
+        return toMiladi(toMillis(shamsiDate))
     }
 
     override fun toMiladi(millis: Long): String { //fromMillis
@@ -157,7 +160,7 @@ class TaghvimImpl():Taghvim{
     }
 
     override fun toMiladi(shamsiDateAndTime: ShamsiDateAndTime): String {
-        TODO("Not yet implemented")
+        return toMiladi(toMillis(shamsiDateAndTime))
     }
 
     override fun toMiladi(dayInShamsiCalendar: Int): String {
@@ -174,7 +177,7 @@ class TaghvimImpl():Taghvim{
     }
 
     override fun toMillis(dayInShamsiCalendar: Int): Long {
-        TODO("Not yet implemented")
+        return dayInShamsiCalendar* MILLIS_IN_DAY + BEGINNING_MILLIS
     }
 
     override fun toMillis(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int): Long {
@@ -190,11 +193,12 @@ class TaghvimImpl():Taghvim{
     }
 
     override fun toMillis(shamsiDate: ShamsiDate): Long {
-        TODO("Not yet implemented")
+        val day = toDay(shamsiDate)
+        return day* MILLIS_IN_DAY + BEGINNING_MILLIS
     }
 
     override fun toMillis(shamsiDateAndTime: ShamsiDateAndTime): Long {
-        TODO("Not implemented")
+        return toMillis(shamsiDateAndTime.date) + shamsiDateAndTime.time.millis
     }
 }
 

@@ -1,4 +1,6 @@
 import date_types.MiladiDate
+import date_types.MiladiDateAndTime
+import date_types.Time24H
 import java.lang.Exception
 
 fun main() {
@@ -13,8 +15,11 @@ fun main() {
      */
     val mez = TaghvimImpl()
     println("-----------------------------------------------")
-    val doom = MiladiDate(1990, 12, 23)
-    println(doom.toShamsi())
+
+    val doom = MiladiDateAndTime(MiladiDate(1999, 4,12), Time24H(15, 53,23))
+    val poost = doom.toShamsi()
+    println(poost)
+    println(poost.toMiladi())
 
 }
 
@@ -57,6 +62,23 @@ fun test2(){
             break
         }
         result = "Successful at day $day"
+    }
+    println(result)
+}
+
+fun test3(){
+    var day = 0
+    var result = ""
+    val mez = TaghvimImpl()
+    while (day < 55150){
+        if (mez.toDay(mez.toMillis(mez.toShamsi(day))) == day){
+            day++
+            result = "Successful at day $day"
+        } else {
+            result = "failed at day $day"
+            break
+        }
+
     }
     println(result)
 }
